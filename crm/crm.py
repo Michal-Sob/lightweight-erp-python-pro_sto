@@ -36,9 +36,7 @@ def start_module():
     ]
     ui.print_menu("CRM", list_options, "Main menu")
 
-    # file_name = "customers.csv"
-    inputs = common.check_int_input(
-        "number: ", "Please provide number of option you chose. ")
+    inputs = ui.get_inputs(["number: "], "Choose menu option.")
     option = inputs[0]
 
     table = data_manager.get_table_from_file("crm/customers.csv")
