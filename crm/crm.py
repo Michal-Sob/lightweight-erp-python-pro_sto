@@ -46,11 +46,13 @@ def start_module():
     elif option == "2":
         add(table)
     elif option == "3":
+        ui.get_inputs(["id: "], "Enter id of record to be deleted.")
         id_ = ui.get_inputs(["id: "], "Enter id of record to be deleted.")[0]
         remove(table, id_)
     elif option == "4":
-        update(table, id_)
+        ui.get_inputs(["id: "], "Ented id of record to be updated")
         id_ = ui.get_inputs(["id: "], "Ented id of record to be updated")
+        update(table, id_)
     elif option == "5":
         label = "Id of the customer with the longest name is: "
         result = get_longest_name_id(table)
