@@ -31,7 +31,7 @@ def start_module():
     list_options = ['Show table Hr', 'Add user', 'remove' , 'update', 'Olders','Closeset Yesr' 'exit program' ]
     ui.print_manu(title, list_options, exit_message)
     # id_ = 
-    table = data_manager.get_table_from_file("hr/persons.csv")
+    table = data_manager.get_table_from_file("persons.csv")
     inputs = ui.get_inputs(["Please enter a number: "], "")
     option = inputs[0]
     if option == "1":

@@ -31,7 +31,7 @@ def start_module():
     list_options = ['Show table Hr', 'Add user', 'remove' , 'update', 'Olders','Closeset Yesr' 'exit program' ]
     ui.print_manu(title, list_options, exit_message)
     # id_ = 
-    table = data_manager.get_table_from_file("hr/persons.csv")
+    table = data_manager.get_table_from_file("persons.csv")
     inputs = ui.get_inputs(["Please enter a number: "], "")
     option = inputs[0]
     if option == "1":
@@ -64,7 +64,7 @@ def show_table(table):
     ui.print_table(table, title_list)
 
 
-def add(table, id_):
+def add(table):
     """
     Asks user for input and adds it into the table.
 
@@ -74,8 +74,8 @@ def add(table, id_):
     Returns:
         list: Table with a new record
     """
-    datauser = ui.get_inputs(['input your name ', 'choose your hire year'], "Please provide your personal information")
-    table.append(id_,datauser[0],datauser(int[1]))
+
+    
 
     return table
 

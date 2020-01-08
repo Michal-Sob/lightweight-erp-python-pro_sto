@@ -20,25 +20,6 @@ def generate_random(table):
 
     generated = ''
 
-    lower_let = 'qwertyuioplkjhgfdsazxcvbnm'
-    upper_let = 'QWERTYUIOPLKJHGFDSAZXCVBNM'
-    digit = '1234567890'
-    special = '!@#$%^&*'
-    
+    # your code
 
-    for i in range(2):
-        generated += random.choice(lower_let)
-        generated += random.choice(upper_let)
-
-
-    for i in range(2):
-        generated += random.choice(digit)
-
-
-    for i in range(2):
-        generated += random.choice(special)
-
-    
     return generated
-
-    
