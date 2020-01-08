@@ -41,4 +41,17 @@ def generate_random(table):
     
     return generated
 
-    
+
+def check_int_input(list_labels, title):
+    """
+    Checks if input from user is int type.
+    Useful for choosing menu switching options.
+    """
+    is_error = False
+    while not is_error:
+        try:
+            inputs = [int(data) for data in input(f"{title} \n {list_labels}")]
+            is_error = True
+        except ValueError:
+            print("Your input should be a number.")
+    return inputs

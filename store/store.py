@@ -18,8 +18,37 @@ import data_manager
 import common
 
 
+
+
 def start_module():
-    """
+    list_options =[
+        "Add new game.",
+        "Remove game.",
+        "Update game.",
+        "Show table"
+    ]
+    title = "Games store"
+    exit_message = "Main menu"
+    ui.print_menu(title, list_options, exit_message)
+    inputs = ui.get_inputs(["Please enter a number: "], "")
+    list_options = inputs[0]
+    table = data_manager.get_table_from_file("games.csv")
+    if list_options == "1":
+        add(table)
+    elif list_options == "2":
+        ui.print_table(table)
+        ui.get_inputs(["ID"],"Input ID of game to remove")
+        remove(table)
+    elif list_options == "3":
+        update(table, id_)
+    elif list_options == "4":
+        show_table(table,)
+    elif list_options == "5":
+        main.main(table, id_)
+    else:
+        raise KeyError("There is no such list_options.")
+
+"""
     Starts this module and displays its menu.
      * User can access default special features from here.
      * User can go back to main menu from here.
@@ -29,7 +58,6 @@ def start_module():
     """
 
     # your code
-
 
 def show_table(table):
     """
@@ -41,8 +69,11 @@ def show_table(table):
     Returns:
         None
     """
+    title_list = ["ID", "Title", "Manufacturer", "Price", "In stock" ]
+    ui.print_table(table, title_list)
+    
 
-    # your code
+    
 
 
 def add(table):
@@ -55,11 +86,11 @@ def add(table):
     Returns:
         list: Table with a new record
     """
-
-    # your code
-
+    inputs = ui.get_inputs(["ID", "name", "developer", "price", "numbers is stock"], "Input: ID, name, developer, price, numbers is stock" )
+    table.append[inputs[0],inputs[1],inputs[2],inputs[3],inputs[4]] # inputs[0] = można zamienić na wygenerowane ID
+    
     return table
-
+    data_manager.write_table_to_file("games.csv", table)
 
 def remove(table, id_):
     """
@@ -74,7 +105,7 @@ def remove(table, id_):
     """
 
     # your code
-
+    table.remove()
     return table
 
 
