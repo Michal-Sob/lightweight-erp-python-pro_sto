@@ -60,8 +60,9 @@ def print_menu(title, list_options, exit_message):
     Returns:
         None: This function doesn't return anything it only prints to console.
     """
-
-    # your code
+    for index, value in enumerate(list_options):
+        print(f"({index+1}) {value}")
+    print("(0) %s" % exit_message)
 
 
 def get_inputs(list_labels, title):
