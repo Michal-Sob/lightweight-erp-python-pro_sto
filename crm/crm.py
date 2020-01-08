@@ -15,6 +15,8 @@ import ui
 import data_manager
 # common module
 import common
+# main module
+import main
 
 
 def start_module():
@@ -27,7 +29,36 @@ def start_module():
         None
     """
 
-    # your code
+    list_options = [
+        "Show table", "Add new record", "Remove record", "Update record",
+        "Show id of the longest name",
+        "Show customers subscribed to newsletter"
+    ]
+    ui.print_menu("CRM", list_options, "Main menu")
+
+    file_name = "customers.csv"
+    inputs = ui.get_inputs(
+        ["number of menu option ", "id(mandatory for updating or adding) "],
+        "Please provide operation details:")
+    option = inputs[0]
+    id_ = inputs[1]
+
+    table = data_manager.get_table_from_file(file_name)
+
+    if option == ["1"]:
+        show_table(table)
+    elif option == ["2"]:
+        add(table)
+    elif option == ["3"]:
+        remove(table, id_)
+    elif option == ["4"]:
+        update(table, id_)
+    elif option == ["5"]:
+        get_longest_name_id(table)
+    elif option == ["6"]:
+        get_subscribed_emails(table)
+    elif option == ["0"]:
+        main.main()
 
 
 def show_table(table):
@@ -40,8 +71,8 @@ def show_table(table):
     Returns:
         None
     """
-
-    # your code
+    table_headers = ["id", "name", "e-mail", "subscribed"]
+    ui.print_table(table, table_headers)
 
 
 def add(table):
@@ -96,6 +127,7 @@ def update(table, id_):
 
 # special functions:
 # ------------------
+
 
 def get_longest_name_id(table):
     """
