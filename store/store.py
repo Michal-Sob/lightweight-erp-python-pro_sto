@@ -31,19 +31,20 @@ def start_module():
     exit_message = "Main menu"
     ui.print_menu(title, list_options, exit_message)
     inputs = ui.get_inputs(["Please enter a number: "], "")
-    list_options = inputs[0]
-    table = data_manager.get_table_from_file("games.csv")
-    if list_options == "1":
+    option = inputs[0]
+    table = data_manager.get_table_from_file("/home/lukasz/programs/light_EPR/lightweight-erp-python-pro_sto/store/games.csv")
+    print(table)
+    if option == "1":
         add(table)
-    elif list_options == "2":
+    elif option == "2":
         ui.print_table(table)
         ui.get_inputs(["ID"],"Input ID of game to remove")
         remove(table)
-    elif list_options == "3":
+    elif option == "3":
         update(table, id_)
-    elif list_options == "4":
+    elif option == "4":
         show_table(table,)
-    elif list_options == "5":
+    elif option == "5":
         main.main(table, id_)
     else:
         raise KeyError("There is no such list_options.")
@@ -87,11 +88,13 @@ def add(table):
         list: Table with a new record
     """
     inputs = ui.get_inputs(["ID", "name", "developer", "price", "numbers is stock"], "Input: ID, name, developer, price, numbers is stock" )
-    table.append[inputs[0],inputs[1],inputs[2],inputs[3],inputs[4]] # inputs[0] = można zamienić na wygenerowane ID
-    
+    table_temp = table.append([inputs[0],inputs[1],inputs[2],inputs[3],inputs[4]]) # inputs[0] = można zamienić na wygenerowane ID
+    print(inputs)
+    print(table_temp)
+    print(table)
+    data_manager.write_table_to_file("/home/lukasz/programs/light_EPR/lightweight-erp-python-pro_sto/store/games.csv", table)
+    print(table)
     return table
-    data_manager.write_table_to_file("games.csv", table)
-
 def remove(table, id_):
     """
     Remove a record with a given id from the table.
