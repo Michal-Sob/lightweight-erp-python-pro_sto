@@ -26,10 +26,10 @@ def start_module():
     Returns:
         None
     """
-    exit_message = main.handle_menu()
+    
     title = "Human resources manager"
-    list_options = ['Show table Hr', 'Add user', 'remove' , 'update', 'Olders','Closeset Yesr' 'exit program' ]
-    ui.print_manu(title, list_options, exit_message)
+    list_options = ['Show table Hr', 'Add User', 'Remove' , 'Update', 'Olders','Closeset Year' ,'Exit program' ]
+    ui.print_menu(title, list_options, "Main menu")
     # id_ = 
     table = data_manager.get_table_from_file("hr/persons.csv")
     inputs = ui.get_inputs(["Please enter a number: "], "")
@@ -75,7 +75,7 @@ def add(table, id_):
         list: Table with a new record
     """
     datauser = ui.get_inputs(['input your name ', 'choose your hire year'], "Please provide your personal information")
-    table.append(id_,datauser[0],datauser(int[1]))
+    table.append(id_,datauser[0],datauser[1])
 
     return table
 

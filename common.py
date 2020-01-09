@@ -13,7 +13,7 @@ def generate_random(table):
 
     Args:
         table (list): Data table to work on. First columns containing the keys.
-kk
+
     Returns:
         string: Random and unique string
     """
@@ -38,8 +38,14 @@ kk
     for i in range(2):
         generated += random.choice(special)
 
-    
     return generated
+
+    for i in range(1):
+        for row in table:
+            if (str(row[0])) ==  generated:
+                generate_random(table)
+        
+
 
 
 def check_int_input(list_labels, title):
