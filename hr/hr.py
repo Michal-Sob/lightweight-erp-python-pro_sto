@@ -26,11 +26,11 @@ def start_module():
     Returns:
         None
     """
-    
+
     title = "Human resources manager"
-    list_options = ['Show table Hr', 'Add User', 'Remove' , 'Update', 'Olders','Closeset Year' ,'Exit program' ]
+    list_options = ['Show table Hr', 'Add User', 'Remove' , 'Update', 'Olders','Closeset Year'  ]
     ui.print_menu(title, list_options, "Main menu")
-    # id_ = 
+    # id_ =
     table = data_manager.get_table_from_file("hr/persons.csv")
     inputs = ui.get_inputs(["Please enter a number: "], "")
     option = inputs[0]
@@ -39,9 +39,12 @@ def start_module():
     elif option == "2":
         add(table)
     elif option == "3":
+        # ui.print_table(table, title_list)
+        id_ = ui.get_inputs(['Choose ID which do you want remove:  '], "Please provide your personal information")
         remove(table, id_)
     elif option == "4":
-        update(table)
+        id_ = ui.get_inputs(['Choose ID which do you want update:  '], "Please provide your personal information")
+        update(table,id_)
     elif option == "5":
         get_oldest_person(table)
     elif option == "6":
@@ -64,7 +67,7 @@ def show_table(table):
     ui.print_table(table, title_list)
 
 
-def add(table, id_):
+def add(table):
     """
     Asks user for input and adds it into the table.
 
@@ -74,8 +77,12 @@ def add(table, id_):
     Returns:
         list: Table with a new record
     """
-    datauser = ui.get_inputs(['input your name ', 'choose your hire year'], "Please provide your personal information")
-    table.append(id_,datauser[0],datauser[1])
+    id_ = common.generate_random(table)
+
+    datauser = ui.get_inputs(['input your name: ', 'Choose your hire year:  '], "Please provide your personal information")
+    table.append([id_, datauser[0],datauser[1]])
+    ui.print_result(datauser, "You add new emploee")
+    data_manager.write_table_to_file("hr/persons.csv", table)
 
     return table
 
@@ -92,9 +99,19 @@ def remove(table, id_):
         list: Table without specified record.
     """
 
-    # your code
+    id_ = ("".join(map(str, id_)))
+
+    for row in table:
+        if row[0] == id_:
+            ui.print_result(row, f"This is  employee who  you going to remove ")
+            table.remove(row)
+            ui.print_result(row, f"You removed this record")
+
+    data_manager.write_table_to_file("hr/persons.csv", table)
 
     return table
+
+
 
 
 def update(table, id_):
@@ -108,9 +125,19 @@ def update(table, id_):
     Returns:
         list: table with updated record
     """
+    id_ = ("".join(map(str, id_)))
+    index_table = 0
+    for row in table:
+        if row[0] == id_:
+            ui.print_result(row, f"This is  employee which you choose ")
+            datauser = ui.get_inputs(['input your name: ', 'Choose your hire year:  '], "Please insert new information")
+            table[index_table][1:] = datauser
+            ui.print_result(table[index_table],f"This is your record after changes")
+        index_table += 1
 
-    # your code
 
+    data_manager.write_table_to_file("hr/persons.csv", table)
+    
     return table
 
 
