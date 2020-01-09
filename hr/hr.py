@@ -82,10 +82,11 @@ def add(table):
     datauser = ui.get_inputs(['input your name: ', 'Choose your hire year:  '], "Please provide your personal information")
     table.append([id_, datauser[0],datauser[1]])
     ui.print_result(datauser, "You add new emploee")
+    
     data_manager.write_table_to_file("hr/persons.csv", table)
-
+    
     return table
-
+    
 
 def remove(table, id_):
     """
