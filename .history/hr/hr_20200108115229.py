@@ -26,18 +26,18 @@ def start_module():
     Returns:
         None
     """
-    
+    exit_message = main.handle_menu()
     title = "Human resources manager"
-    list_options = ['Show table Hr', 'Add User', 'Remove' , 'Update', 'Olders','Closeset Year' ,'Exit program' ]
-    ui.print_menu(title, list_options, "Main menu")
-    # id_ = 
-    table = data_manager.get_table_from_file("hr/persons.csv")
+    list_options = ['Show table Hr', 'Add user', 'remove' , 'update', 'Olders','Closeset Yesr' 'exit program' ]
+    ui.print_manu(title, list_options, exit_message)
+
+    table = data_manager.get_table_from_file('persons.csv')
     inputs = ui.get_inputs(["Please enter a number: "], "")
     option = inputs[0]
     if option == "1":
         show_table(table)
     elif option == "2":
-        add(table)
+        add(table, id_)
     elif option == "3":
         remove(table, id_)
     elif option == "4":
@@ -47,7 +47,7 @@ def start_module():
     elif option == "6":
         get_persons_closest_to_average(table)
     elif option == "0":
-        main.main()
+        main.handle_menu()
 
 def show_table(table):
     """
@@ -60,11 +60,11 @@ def show_table(table):
         None
     """
 
-    title_list = ['ID', 'Name', 'Year']
+    title_list = ['ID', 'Work ID', 'Name', 'Year']
     ui.print_table(table, title_list)
 
 
-def add(table, id_):
+def add(table):
     """
     Asks user for input and adds it into the table.
 
@@ -74,8 +74,8 @@ def add(table, id_):
     Returns:
         list: Table with a new record
     """
-    datauser = ui.get_inputs(['input your name ', 'choose your hire year'], "Please provide your personal information")
-    table.append(id_,datauser[0],datauser[1])
+
+    
 
     return table
 

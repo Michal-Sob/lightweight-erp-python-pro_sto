@@ -36,28 +36,30 @@ def start_module():
     ]
     ui.print_menu("CRM", list_options, "Main menu")
 
-    file_name = "customers.csv"
-    inputs = ui.get_inputs(
-        ["number of menu option ", "id(mandatory for updating or adding) "],
-        "Please provide operation details:")
+    inputs = ui.get_inputs(["number: "], "Choose menu option.")
     option = inputs[0]
-    id_ = inputs[1]
 
-    table = data_manager.get_table_from_file(file_name)
+    table = data_manager.get_table_from_file("crm/customers.csv")
 
-    if option == ["1"]:
+    if option == "1":
         show_table(table)
-    elif option == ["2"]:
+    elif option == "2":
         add(table)
-    elif option == ["3"]:
+    elif option == "3":
+        ui.get_inputs(["id: "], "Enter id of record to be deleted.")
+        id_ = ui.get_inputs(["id: "], "Enter id of record to be deleted.")[0]
         remove(table, id_)
-    elif option == ["4"]:
+    elif option == "4":
+        ui.get_inputs(["id: "], "Ented id of record to be updated")
+        id_ = ui.get_inputs(["id: "], "Ented id of record to be updated")
         update(table, id_)
-    elif option == ["5"]:
-        get_longest_name_id(table)
-    elif option == ["6"]:
+    elif option == "5":
+        label = "Id of the customer with the longest name is: "
+        result = get_longest_name_id(table)
+        ui.print_result(result, label)
+    elif option == "6":
         get_subscribed_emails(table)
-    elif option == ["0"]:
+    elif option == "0":
         main.main()
 
 
@@ -71,6 +73,7 @@ def show_table(table):
     Returns:
         None
     """
+    table = data_manager.get_table_from_file("crm/customers.csv")
     table_headers = ["id", "name", "e-mail", "subscribed"]
     ui.print_table(table, table_headers)
 
@@ -140,8 +143,14 @@ def get_longest_name_id(table):
             string: id of the longest name (if there are more than one, return
                 the last by alphabetical order of the names)
         """
-
-    # your code
+    table = data_manager.get_table_from_file("crm/customers.csv")
+    longest_name = table[0][1]
+    result = table[0][0]
+    for line in table:
+        if len(line[1]) >= len(longest_name) and line[1][0] >= longest_name[0]:
+            longest_name = line[1]
+            result = line[0]
+    return result
 
 
 # the question: Which customers has subscribed to the newsletter?
