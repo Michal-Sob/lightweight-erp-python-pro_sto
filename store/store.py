@@ -27,6 +27,7 @@ def start_module():
         "Update game.",
         "Show table"
     ]
+    title_list = ["ID", "Title", "Manufacturer", "Price", "In stock" ]
     title = "Games store"
     exit_message = "Main menu"
     ui.print_menu(title, list_options, exit_message)
@@ -37,9 +38,9 @@ def start_module():
     if option == "1":
         add(table)
     elif option == "2":
-        ui.print_table(table)
-        ui.get_inputs(["ID"],"Input ID of game to remove")
-        remove(table)
+        ui.print_table(table,title_list)
+        id_ = str(ui.get_inputs(["ID "],"Input ID of game to remove"))
+        remove(table,id_)
     elif option == "3":
         update(table, id_)
     elif option == "4":
@@ -70,7 +71,7 @@ def show_table(table):
     Returns:
         None
     """
-    title_list = ["ID", "Title", "Manufacturer", "Price", "In stock" ]
+    
     ui.print_table(table, title_list)
     
 
@@ -87,13 +88,13 @@ def add(table):
     Returns:
         list: Table with a new record
     """
-    inputs = ui.get_inputs(["ID", "name", "developer", "price", "numbers is stock"], "Input: ID, name, developer, price, numbers is stock" )
-    table_temp = table.append([inputs[0],inputs[1],inputs[2],inputs[3],inputs[4]]) # inputs[0] = można zamienić na wygenerowane ID
-    print(inputs)
-    print(table_temp)
-    print(table)
+    inputs = ui.get_inputs(["name ", "developer ", "price ", "numbers is stock "], "Input: ID, name, developer, price, numbers is stock" )
+    genereted_id = common.generate_random(table)
+    
+    table_temp = table.append([genereted_id,inputs[0],inputs[1],inputs[2],inputs[3],]) # inputs[0] = można zamienić na wygenerowane ID
+    
     data_manager.write_table_to_file("/home/lukasz/programs/light_EPR/lightweight-erp-python-pro_sto/store/games.csv", table)
-    print(table)
+    
     return table
 def remove(table, id_):
     """
@@ -108,7 +109,19 @@ def remove(table, id_):
     """
 
     # your code
-    table.remove()
+    count = 0
+    print(str(id_))
+    for line in range(0,len(table))
+        if id_ == [table[count][0]]:
+            print(table[count])
+            table = table.remove(table[count])
+            break
+
+        
+        count+=1
+    
+    data_manager.write_table_to_file("/home/lukasz/programs/light_EPR/lightweight-erp-python-pro_sto/store/games.csv", table)
+    
     return table
 
 
