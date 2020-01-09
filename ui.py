@@ -21,8 +21,14 @@ def print_table(table, title_list):
     Returns:
         None: This function doesn't return anything it only prints to console.
     """
-
-    # your goes code
+    i = 0
+    print("--------" * len(title_list))
+    print(*title_list, sep=" | ", end=' | \n')
+    print("--------" * len(title_list))
+    for element in table:
+        LENGTH = 7
+        print(*element, sep=" "*(LENGTH-len(element)), end=' | \n')
+        i += 1
 
 
 def print_result(result, label):
