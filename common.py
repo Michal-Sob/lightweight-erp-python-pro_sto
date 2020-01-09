@@ -13,7 +13,7 @@ def generate_random(table):
 
     Args:
         table (list): Data table to work on. First columns containing the keys.
-
+kk
     Returns:
         string: Random and unique string
     """
