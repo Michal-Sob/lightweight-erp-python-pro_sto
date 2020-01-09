@@ -1,4 +1,5 @@
 # Do not modify this file
+import os.path
 
 
 def get_table_from_file(file_name):
