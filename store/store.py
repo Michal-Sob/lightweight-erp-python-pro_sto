@@ -17,6 +17,8 @@ import data_manager
 # common module
 import common
 
+import main
+
 
 
 
@@ -34,7 +36,7 @@ def start_module():
     inputs = ui.get_inputs(["Please enter a number: "], "")
     option = inputs[0]
     table = data_manager.get_table_from_file("/home/lukasz/programs/light_EPR/lightweight-erp-python-pro_sto/store/games.csv")
-    print(table)
+    
     if option == "1":
         add(table)
     elif option == "2":
@@ -44,7 +46,7 @@ def start_module():
     elif option == "3":
         update(table, id_)
     elif option == "4":
-        show_table(table,)
+        show_table(table)
     elif option == "5":
         main.main(table, id_)
     else:
@@ -71,6 +73,7 @@ def show_table(table):
     Returns:
         None
     """
+    title_list = ["ID", "Title", "Manufacturer", "Price", "In stock" ]
     
     ui.print_table(table, title_list)
     
@@ -111,7 +114,7 @@ def remove(table, id_):
     # your code
     count = 0
     print(str(id_))
-    for line in range(0,len(table))
+    for line in range(0,len(table)):
         if id_ == [table[count][0]]:
             print(table[count])
             table = table.remove(table[count])

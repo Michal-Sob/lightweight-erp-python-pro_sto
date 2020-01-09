@@ -21,14 +21,40 @@ def print_table(table, title_list):
     Returns:
         None: This function doesn't return anything it only prints to console.
     """
-    i = 0
-    print("--------" * len(title_list))
-    print(*title_list, sep=" | ", end=' | \n')
-    print("--------" * len(title_list))
-    for element in table:
-        LENGTH = 7
-        print(*element, sep=" "*(LENGTH-len(element)), end=' | \n')
-        i += 1
+
+    max_length_column = []
+    whole_length = 0
+    spacebar_between_columns = 5
+    separtor = "|"
+    for column in range(len(title_list)):   
+        temp_lenght_column = 0
+        for row in range(len(table)):
+            if len(str(table[row][column])) > temp_lenght_column:
+                temp_lenght_column = len(str(table[row][column]))
+                temp_lenght_column = int(temp_lenght_column) + spacebar_between_columns
+        max_length_column.append(temp_lenght_column)
+
+    for i in range(len(max_length_column)):     # dlugosc wszyskich znakow / suma znakow z wierszywiersza max
+        whole_length += max_length_column[i]
+
+    print("\n\n")
+    print(whole_length * "-")
+
+    for i in range(len(title_list)):
+        separtor = "|"
+        print(f"{title_list[i]:<{max_length_column[i]}}", end=" | ")
+
+    print()
+
+    print(whole_length * "-")
+    for row in table:
+        for i in range(len(row)):
+            separtor = "|"
+            print(f"{row[i]:<{max_length_column[i]}}", end=" | ") 
+
+        print()
+        print(whole_length * "-")
+    print("")
 
 
 def print_result(result, label):
