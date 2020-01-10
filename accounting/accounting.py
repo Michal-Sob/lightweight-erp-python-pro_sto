@@ -17,79 +17,67 @@ import ui
 import data_manager
 # common module
 import common
-
+import main
 
 def start_module():
-    """
-    Starts this module and displays its menu.
-     * User can access default special features from here.
-     * User can go back to main menu from here.
+    exit_message = main.handle_menu()
+    title= 'Accounting'
+    list_options = [
+        "Show table", "Add new record", "Remove record", "Update record",
+        "Year with the higher profit","Average (per item) profit in a given year"
+    ]
+    ui.print_menu('Accounting', list_options, exit_message)
 
-    Returns:
-        None
-    """
+    file_name = "items.csv"
+    inputs = ui.get_inputs(["number: "], "Choose menu option.")
+    option = inputs[0]
 
-    # you code
+    table = data_manager.get_table_from_file("accounting/items.csv")
 
+    if option == ["1"]:
+        show_table(table)
+    elif option == ["2"]:
+        add(table)
+    elif option == ["3"]:
+        ui.get_inputs(["id: "], "Enter id of record to be deleted.")
+        id_ = ui.get_inputs(["id: "], "Enter id of record to be deleted.")[0]
+    elif option == ["4"]:
+        ui.get_inputs(["id: "], "Ented id of record to be updated")
+        id_ = ui.get_inputs(["id: "], "Ented id of record to be updated")
+        update(table, id_)
+    elif option == ["5"]:
+        which_year_max(table)
+    elif option == ["6"]:
+        avg_amount(table,year)
+    elif option == ["0"]:
+        main.main()
 
 def show_table(table):
-    """
-    Display a table
-
-    Args:
-        table (list): list of lists to be displayed.
-
-    Returns:
-        None
-    """
-
+    table_headers=['id','month','day','year','type','amount']  
+    table= data_manager.get_table_from_file(items.csv) 
+ui.print_table(table,table_headers)
     # your code
 
+def add(table,id):
+    id_ = common.generate_random(table)
 
-def add(table):
-    """
-    Asks user for input and adds it into the table.
-
-    Args:
-        table (list): table to add new record to
-
-    Returns:
-        list: Table with a new record
-    """
-
-    # your code
-
-    return table
-
+    datauser = ui.get_inputs(['input your name: ', 'Choose your hire year:  '], "Please provide your personal information")
+    table.append([id_, datauser[0],datauser[1]])
+    ui.print_result(datauser, "You add new record")
+    
+    data_manager.write_table_to_file("hr/persons.csv", table)
 
 def remove(table, id_):
-    """
-    Remove a record with a given id from the table.
-
-    Args:
-        table (list): table to remove a record from
-        id_ (str): id of a record to be removed
-
-    Returns:
-        list: Table without specified record.
-    """
-
-    # your code
-
-    return table
+    id=common.generate_random(table)
+    inputs= get_inputs(['table','id'],'Please provide id and table to remove')
+    table=table.remove(inputs)
+    ui.print_table(table,title_list)
+    
+    #return table
 
 
 def update(table, id_):
-    """
-    Updates specified record in the table. Ask users for new data.
-
-    Args:
-        table (list): list in which record should be updated
-        id_ (str): id of a record to update
-
-    Returns:
-        list: table with updated record
-    """
+    
 
     # your code
 
@@ -114,6 +102,8 @@ def which_year_max(table):
 
 
 def avg_amount(table, year):
+   
+
     """
     Question: What is the average (per item) profit in a given year? [(profit)/(items count)]
 
@@ -124,5 +114,9 @@ def avg_amount(table, year):
     Returns:
         number
     """
+    inputs= ui.get_inputs.(['table','year'],'Please provide a year to calculate profit')
+    with open.(items.csv,'r')
+    
+
 
     # your code
