@@ -24,43 +24,20 @@ def generate_random(table):
     upper_let = 'QWERTYUIOPLKJHGFDSAZXCVBNM'
     digit = '1234567890'
     special = '!@#$%^&*'
-    
 
     for i in range(2):
         generated += random.choice(lower_let)
         generated += random.choice(upper_let)
 
-
     for i in range(2):
         generated += random.choice(digit)
-
 
     for i in range(2):
         generated += random.choice(special)
 
-    
-
     for i in range(1):
         for row in table:
-            if (str(row[0])) ==  generated:
+            if (str(row[0])) == generated:
                 generate_random(table)
 
-
     return generated
-        
-
-
-
-def check_int_input(list_labels, title):
-    """
-    Checks if input from user is int type.
-    Useful for choosing menu switching options.
-    """
-    is_error = False
-    while not is_error:
-        try:
-            inputs = [int(data) for data in input(f"{title} \n {list_labels}")]
-            is_error = True
-        except ValueError:
-            print("Your input should be a number.")
-    return inputs
