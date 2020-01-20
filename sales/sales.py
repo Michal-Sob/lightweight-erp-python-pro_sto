@@ -17,7 +17,7 @@ import ui
 import data_manager
 # common module
 import common
-
+import main
 
 def start_module():
     exit_message = main.handle_menu()
@@ -78,7 +78,7 @@ def add(table):
     table= table.append(table)
     table=data_manager.get_table_from_file(accounting/items.csv)
     table= data_manager.write_table_to_file(items.csv,inputs)
-ui.print_table(table,table_headers)
+    ui.print_table(table,table_headers)
 
     # your code
 
@@ -113,12 +113,12 @@ def update(table, id_):
     Returns:
         list: table with updated record
     """
-    id=common.generate_random(table)
-    with open (sales.csv,'r+') as file:
+    # id=common.generate_random(table)
+    # with open (sales.csv,'r+') as file:
 
-    # your code
+    # # your code
 
-    return table
+    # return table
 
 
 # special functions:
