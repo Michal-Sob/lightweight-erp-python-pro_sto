@@ -89,7 +89,20 @@ def add(table):
         list: Table with a new record
     """
 
-    # your code
+    message = ("Please check your input")
+    id_ = common.generate_random(table)
+    datauser = ui.get_inputs([
+        'Input client name: ', 'Input client email: ',
+        'Is she/he subscribed to the newsletter? 1/0 = yes/no  '
+    ], "Please provide your personal information")
+    if isinstance(datauser[0], str) and datauser[2] == '0' or datauser[2] == '1':
+        table.append([id_, datauser[0], datauser[1], datauser[2]])
+        label = "You have just added new client: "
+        ui.print_result(datauser, label)
+        data_manager.write_table_to_file("crm/customers.csv", table)
+    else:
+        ui.print_error_message(message)
+        add(table)
 
     return table
 
@@ -186,7 +199,6 @@ def get_name_by_id(id):
     """
 
     # your code
-
 
 
 def get_name_by_id_from_table(table, id):
