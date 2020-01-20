@@ -166,9 +166,6 @@ def get_subscribed_emails(table):
             list: list of strings (where a string is like "email;name")
         """
 
-<<<<<<< HEAD
-    # your code
-=======
     # your code
 
 
@@ -205,4 +202,3 @@ def get_name_by_id_from_table(table, id):
     """
 
     # your code
->>>>>>> week2
