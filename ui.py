@@ -4,7 +4,6 @@
 def print_table(table, title_list):
     """
     Prints table with data.
-
     Example:
         /-----------------------------------\
         |   id   |      title     |  type   |
@@ -13,19 +12,16 @@ def print_table(table, title_list):
         |--------|----------------|---------|
         |   1    |       fo       |    fps  |
         \-----------------------------------/
-
     Args:
         table (list): list of lists - table to display
         title_list (list): list containing table headers
-
     Returns:
         None: This function doesn't return anything it only prints to console.
     """
-
+    separator = " | "
     max_length_column = []
     whole_length = 0
-    spacebar_between_columns = 5
-    separtor = "|"
+    spacebar_between_columns = 3
     for column in range(len(title_list)):   
         temp_lenght_column = 0
         for row in range(len(table)):
@@ -33,24 +29,30 @@ def print_table(table, title_list):
                 temp_lenght_column = len(str(table[row][column]))
                 temp_lenght_column = int(temp_lenght_column) + spacebar_between_columns
         max_length_column.append(temp_lenght_column)
+    
+    for i in range(len(title_list)):
+        temp_lenght_titel = len(str(title_list[i]))
+        if temp_lenght_titel > max_length_column[i]:
+            max_length_column[i] = temp_lenght_titel
+        
+
 
     for i in range(len(max_length_column)):     # dlugosc wszyskich znakow / suma znakow z wierszywiersza max
         whole_length += max_length_column[i]
+    whole_length += len(title_list) * len(str(separator))
 
     print("\n\n")
     print(whole_length * "-")
 
     for i in range(len(title_list)):
-        separtor = "|"
-        print(f"{title_list[i]:<{max_length_column[i]}}", end=" | ")
+        print(f"{title_list[i]:>{max_length_column[i]}}", end=separator)
 
     print()
 
     print(whole_length * "-")
     for row in table:
         for i in range(len(row)):
-            separtor = "|"
-            print(f"{row[i]:<{max_length_column[i]}}", end=" | ") 
+            print(f"{row[i]:<{max_length_column[i]}}", end=separator) 
 
         print()
         print(whole_length * "-")
@@ -60,11 +62,9 @@ def print_table(table, title_list):
 def print_result(result, label):
     """
     Displays results of the special functions.
-
     Args:
         result: result of the special function (string, number, list or dict)
         label (str): label of the result
-
     Returns:
         None: This function doesn't return anything it only prints to console.
     """
@@ -83,12 +83,10 @@ def print_menu(title, list_options, exit_message):
             (5) Sales manager
             (6) Customer relationship management (CRM)
             (0) Exit program
-
     Args:
         title (str): menu title
         list_options (list): list of strings - options that will be shown in menu
         exit_message (str): the last option with (0) (example: "Back to main menu")
-
     Returns:
         None: This function doesn't return anything it only prints to console.
     """
@@ -107,11 +105,9 @@ def get_inputs(list_labels, title):
         Name <user_input_1>
         Surname <user_input_2>
         Age <user_input_3>
-
     Args:
         list_labels (list): labels of inputs
         title (string): title of the "input section"
-
     Returns:
         list: List of data given by the user. Sample return:
             [<user_input_1>, <user_input_2>, <user_input_3>]
@@ -125,10 +121,8 @@ def get_inputs(list_labels, title):
 def print_error_message(message):
     """
     Displays an error message (example: ``Error: @message``)
-
     Args:
         message (str): error message to be displayed
-
     Returns:
         None: This function doesn't return anything it only prints to console.
     """

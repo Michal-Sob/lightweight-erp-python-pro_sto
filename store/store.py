@@ -35,7 +35,7 @@ def start_module():
     ui.print_menu(title, list_options, exit_message)
     inputs = ui.get_inputs(["Please enter a number: "], "")
     option = inputs[0]
-    table = data_manager.get_table_from_file("/home/lukasz/programs/light_EPR/lightweight-erp-python-pro_sto/store/games.csv")
+    table = data_manager.get_table_from_file("store/games.csv")
     
     if option == "1":
         add(table)
@@ -96,7 +96,7 @@ def add(table):
     
     table_temp = table.append([genereted_id,inputs[0],inputs[1],inputs[2],inputs[3],]) # inputs[0] = można zamienić na wygenerowane ID
     
-    data_manager.write_table_to_file("/home/lukasz/programs/light_EPR/lightweight-erp-python-pro_sto/store/games.csv", table)
+    data_manager.write_table_to_file("store/games.csv", table)
     
     return table
 def remove(table, id_):
@@ -123,7 +123,7 @@ def remove(table, id_):
         
         count+=1
     
-    data_manager.write_table_to_file("/home/lukasz/programs/light_EPR/lightweight-erp-python-pro_sto/store/games.csv", table)
+    data_manager.write_table_to_file("store/games.csv", table)
     
     return table
 
