@@ -77,13 +77,21 @@ def add(table):
     Returns:
         list: Table with a new record
     """
-    id_ = common.generate_random(table)
 
+    # name = datauser[0]
+    message = ("Please check your input")
+    CURRENT_YEAR = 2021
+    id_ = common.generate_random(table)
+    # while isinstance(datauser[0], str) and isinstance(datauser[1], int) and datauser[1] < CURRENT_YEAR:
     datauser = ui.get_inputs(['input your name: ', 'Choose your hire year:  '], "Please provide your personal information")
-    table.append([id_, datauser[0],datauser[1]])
-    ui.print_result(datauser, "You add new emploee")
-    
-    data_manager.write_table_to_file("hr/persons.csv", table)
+    if isinstance(datauser[0], str) and isinstance(datauser[1], int) and datauser[1] < CURRENT_YEAR:
+        table.append([id_, datauser[0],datauser[1]])
+        label = "You add new emploee"
+        ui.print_result(datauser, label)
+        data_manager.write_table_to_file("hr/persons.csv", table)
+    else:
+        ui.print_error_message(message)
+        add(table)
     
     return table
     
@@ -107,7 +115,7 @@ def remove(table, id_):
             ui.print_result(row, f"This is  employee who  you going to remove ")
             table.remove(row)
             ui.print_result(row, f"You removed this record")
-
+        
     data_manager.write_table_to_file("hr/persons.csv", table)
 
     return table

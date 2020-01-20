@@ -24,7 +24,7 @@ def print_table(table, title_list):
 
     max_length_column = []
     whole_length = 0
-    spacebar_between_columns = 5
+    spacebar_between_columns = 9
     separtor = "|"
     for column in range(len(title_list)):   
         temp_lenght_column = 0
@@ -132,5 +132,5 @@ def print_error_message(message):
     Returns:
         None: This function doesn't return anything it only prints to console.
     """
-
+    print(message)
     # your code
