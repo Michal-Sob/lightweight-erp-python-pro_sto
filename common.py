@@ -38,12 +38,15 @@ def generate_random(table):
     for i in range(2):
         generated += random.choice(special)
 
-    return generated
+    
 
     for i in range(1):
         for row in table:
             if (str(row[0])) ==  generated:
                 generate_random(table)
+
+
+    return generated
         
 
 

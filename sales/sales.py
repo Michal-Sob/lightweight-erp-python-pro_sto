@@ -20,28 +20,45 @@ import common
 
 
 def start_module():
-    """
-    Starts this module and displays its menu.
-     * User can access default special features from here.
-     * User can go back to main menu from here.
+    exit_message = main.handle_menu()
+    title= 'Sales'
+    list_options = [
+        "Show table", "Add new record", "Remove record", "Update record",
+        "Lowest Price item","Which items are sold between two given dates?"
+    ]
+    ui.print_menu('Sales', list_options, exit_message)
 
-    Returns:
-        None
-    """
+    file_name = "sales.csv"
+    inputs = ui.get_inputs(["number: "], "Choose menu option.")
+    option = inputs[0]
+
+    table = data_manager.get_table_from_file("accounting/items.csv")
+
+    if option == ["1"]:
+        show_table(table)
+    elif option == ["2"]:
+        add(table)
+    elif option == ["3"]:
+        ui.get_inputs(["id: "], "Enter id of record to be deleted.")
+        id_ = ui.get_inputs(["id: "], "Enter id of record to be deleted.")[0]
+    elif option == ["4"]:
+        ui.get_inputs(["id: "], "Ented id of record to be updated")
+        id_ = ui.get_inputs(["id: "], "Ented id of record to be updated")
+        update(table, id_)
+    elif option == ["5"]:
+        get_lowest_price_item_id(table)
+    elif option == ["6"]:
+        get_items_sold_between(table, month_from, day_from, year_from, month_to, day_to, year_to)
+    elif option == ["0"]:
+        main.main()
 
     # your code
 
 
 def show_table(table):
-    """
-    Display a table
-
-    Args:
-        table (list): list of lists to be displayed.
-
-    Returns:
-        None
-    """
+    table_headers=['id','title','price','month','day','year']  
+    table= data_manager.get_table_from_file(sales.csv) 
+    ui.print_table(table,table_headers)
 
     # your code
 
@@ -56,6 +73,12 @@ def add(table):
     Returns:
         list: Table with a new record
     """
+    inputs= get_inputs(["month","day","year","type","amount"],"Please provide information to add")
+    id=common.generate_random(table)
+    table= table.append(table)
+    table=data_manager.get_table_from_file(accounting/items.csv)
+    table= data_manager.write_table_to_file(items.csv,inputs)
+ui.print_table(table,table_headers)
 
     # your code
 
@@ -90,6 +113,8 @@ def update(table, id_):
     Returns:
         list: table with updated record
     """
+    id=common.generate_random(table)
+    with open (sales.csv,'r+') as file:
 
     # your code
 
