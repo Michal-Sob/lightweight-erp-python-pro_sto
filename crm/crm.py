@@ -95,7 +95,8 @@ def add(table):
         'Input client name: ', 'Input client email: ',
         'Is she/he subscribed to the newsletter? 1/0 = yes/no  '
     ], "Please provide your personal information")
-    if isinstance(datauser[0], str) and datauser[2] == '0' or datauser[2] == '1':
+    if isinstance(datauser[0],
+                  str) and datauser[2] == '0' or datauser[2] == '1':
         table.append([id_, datauser[0], datauser[1], datauser[2]])
         label = "You have just added new client: "
         ui.print_result(datauser, label)
@@ -119,7 +120,15 @@ def remove(table, id_):
         list: Table without specified record.
     """
 
-    # your code
+    id_ = ("".join(map(str, id_)))
+
+    for row in table:
+        if row[0] == id_:
+            ui.print_result(row, f"This is  client you are removing ")
+            table.remove(row)
+            ui.print_result(row, f"You removed this record ")
+
+    data_manager.write_table_to_file("crm/customers.csv", table)
 
     return table
 
