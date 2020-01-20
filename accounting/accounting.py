@@ -55,7 +55,7 @@ def start_module():
 def show_table(table):
     table_headers=['id','month','day','year','type','amount']  
     table= data_manager.get_table_from_file(items.csv) 
-ui.print_table(table,table_headers)
+    ui.print_table(table,table_headers)
     # your code
 
 def add(table,id):
@@ -114,8 +114,8 @@ def avg_amount(table, year):
     Returns:
         number
     """
-    inputs= ui.get_inputs.(['table','year'],'Please provide a year to calculate profit')
-    with open.(items.csv,'r')
+    # inputs= ui.get_inputs.(['table','year'],'Please provide a year to calculate profit')
+    # with open.(items.csv,'r')
     
 
 
