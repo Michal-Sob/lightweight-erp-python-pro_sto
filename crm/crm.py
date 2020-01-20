@@ -145,7 +145,21 @@ def update(table, id_):
         list: table with updated record
     """
 
-    # your code
+    id_ = ("".join(map(str, id_)))
+    index_table = 0
+    for row in table:
+        if row[0] == id_:
+            ui.print_result(row, f"This is client you want to update: ")
+            datauser = ui.get_inputs([
+                'Please input new name: ', 'Please input new email:  ',
+                'Is client is subscribed to newsletter or not 1/0 = yes/no '
+            ], "Please insert new information")
+            table[index_table][1:] = datauser
+            ui.print_result(table[index_table],
+                            f"This is your record after changes")
+        index_table += 1
+
+    data_manager.write_table_to_file("crm/customers.csv", table)
 
     return table
 
