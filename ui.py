@@ -128,5 +128,5 @@ def print_error_message(message):
     Returns:
         None: This function doesn't return anything it only prints to console.
     """
-    print(message)
+    print(f'\n\t{message}\n')
     # your code
