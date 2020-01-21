@@ -33,11 +33,12 @@ def start_module():
     """
 
     list_options =[
-        'Get the most frequent buyers ids', 
-        'Get the most frequent buyers names',
-        'Get the buyer id spent most and the money spent',
+        'Get the last buyer name (working)',
+        'Get the last buyer id', 
         'Get the buyer name spent most and the money spent',
-        'Get the last buyer id', 'Get the last buyer name'
+        'Get the buyer id spent most and the money spent',
+        'Get the most frequent buyers names',
+        'Get the most frequent buyers ids'
     ]
     
     title = "Data analyser module"
@@ -75,7 +76,7 @@ def start_module():
 
 
 
-def get_the_last_buyer_name(): #still working on it PP
+def get_the_last_buyer_name(): #I need to put some code into common functions PP
     """
     Returns the customer _name_ of the customer made sale last.
 
@@ -83,20 +84,25 @@ def get_the_last_buyer_name(): #still working on it PP
         str: Customer name of the last buyer
     """
     sales_table=data_manager.get_table_from_file("sales/sales.csv")
-    # extracted_data = [[y,m,d,c_id] for y,m,d,c_id in zip(sales_table[-1],sales_table[-2],sales_table[-3],sales_table[-4])]
+    customer_table=data_manager.get_table_from_file("crm/customers.csv")
     extracted_data = {}
     for row in sales_table:
-        full_date = common.date_converter(row[-2], row[-3], row[-4])
-        extracted_data[full_date] = []
-        extracted_data[full_date].append(row[-1])
-        # date_cust_id_list = common.date_converter(row[-2], row[-3], row[-4]), row[-1]
-        # if full_date in extracted_data:
-        #     extracted_data[full_date].append(row[-1])
-        # else:
-        #     extracted_data[full_date]=row[-1]
-        # print(m,d,y,c)
-    print("extracted data",extracted_data)
-    # your code
+        full_date = common.date_converter(row[-2], row[-3], row[-4]) # converts to consistent data format
+        if full_date in extracted_data.keys(): #checks if key already has ben used
+            extracted_data[full_date].append(row[-1]) #adds another value to value list
+        else:
+            extracted_data[full_date]=[row[-1]] # adds first k/v pair with value as a list
+
+    desc_dates = sorted(extracted_data.keys(), reverse=True) #creates list with sorted key val from dict
+    last_buy = desc_dates[0] #assigns highest date number
+    cust_id = extracted_data[last_buy] 
+    
+    if len(cust_id)==1: #checks if there is only one cust_id for latest date
+        for row in customer_table:
+            if "".join(cust_id) in row:
+                print(f"Last buyer name is {row[1]}, game was bought on: {last_buy} \n")
+                
+# your code
 
 
 def get_the_last_buyer_id():
