@@ -46,11 +46,9 @@ def start_module():
     elif option == "2":
         add(table)
     elif option == "3":
-        ui.get_inputs(["id: "], "Enter id of record to be deleted.")
-        id_ = ui.get_inputs(["id: "], "Enter id of record to be deleted.")[0]
+        id_ = ui.get_inputs(["id: "], "Enter id of record to be deleted.")
         remove(table, id_)
     elif option == "4":
-        ui.get_inputs(["id: "], "Ented id of record to be updated")
         id_ = ui.get_inputs(["id: "], "Ented id of record to be updated")
         update(table, id_)
     elif option == "5":
@@ -90,20 +88,20 @@ def add(table):
     """
 
     message = ("Please check your input")
-    id_ = common.generate_random(table)
-    datauser = ui.get_inputs([
-        'Input client name: ', 'Input client email: ',
-        'Is she/he subscribed to the newsletter? 1/0 = yes/no  '
-    ], "Please provide your personal information")
-    if isinstance(datauser[0],
-                  str) and datauser[2] == '0' or datauser[2] == '1':
-        table.append([id_, datauser[0], datauser[1], datauser[2]])
-        label = "You have just added new client: "
-        ui.print_result(datauser, label)
-        data_manager.write_table_to_file("crm/customers.csv", table)
-    else:
-        ui.print_error_message(message)
-        add(table)
+    while True:
+        id_ = common.generate_random(table)
+        datauser = ui.get_inputs([
+            'Input client name: ', 'Input client email: ',
+            'Is she/he subscribed to the newsletter? 1/0 = yes/no  '
+        ], "Please provide your personal information")
+        if isinstance(datauser[0],str) and datauser[2] == '0' or datauser[2] == '1':
+            table.append([id_, datauser[0], datauser[1], datauser[2]])
+            label = "You have just added new client: "
+            ui.print_result(datauser, label)
+            data_manager.write_table_to_file("crm/customers.csv", table)
+            break
+        else:
+            ui.print_error_message(message)
 
     return table
 
@@ -119,8 +117,6 @@ def remove(table, id_):
     Returns:
         list: Table without specified record.
     """
-
-    id_ = ("".join(map(str, id_)))
 
     for row in table:
         if row[0] == id_:
@@ -149,14 +145,13 @@ def update(table, id_):
     index_table = 0
     for row in table:
         if row[0] == id_:
-            ui.print_result(row, f"This is client you want to update: ")
+            ui.print_result(row, "This is client you want to update: ")
             datauser = ui.get_inputs([
                 'Please input new name: ', 'Please input new email:  ',
-                'Is client is subscribed to newsletter or not 1/0 = yes/no '
-            ], "Please insert new information")
+                'Is client is subscribed to newsletter or not 1/0 = yes/no '],
+                "Please insert new information")
             table[index_table][1:] = datauser
-            ui.print_result(table[index_table],
-                            f"This is your record after changes")
+            ui.print_result(table[index_table],"This is your record after changes")
         index_table += 1
 
     data_manager.write_table_to_file("crm/customers.csv", table)
@@ -202,7 +197,12 @@ def get_subscribed_emails(table):
             list: list of strings (where a string is like "email;name")
         """
 
-    # your code
+    NEWSLETTER_INDEX = 3
+    result = []
+    for row in table:
+        if int(row[NEWSLETTER_INDEX]) == 1:
+            result.append(f'{row[2]};{row[1]}')
+    ui.print_result(result, 'These are users that subcribe our newsletter')
 
 
 # functions supports data analyser

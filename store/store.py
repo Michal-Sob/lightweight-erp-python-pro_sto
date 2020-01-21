@@ -107,6 +107,8 @@ def add(table):
     data_manager.write_table_to_file("store/games.csv", table)
     
     return table
+
+    
 def remove(table, id_):
     """
     Remove a record with a given id from the table.
