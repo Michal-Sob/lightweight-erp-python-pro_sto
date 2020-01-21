@@ -32,33 +32,37 @@ def start_module():
     list_options = [
         "Show table", "Add new record", "Remove record", "Update record",
         "Show id of the longest name",
-        "Show customers subscribed to newsletter"
+        "Show customers subscribed to newsletter",
+        "Show Name of a customer by ID"
     ]
-    ui.print_menu("CRM", list_options, "Main menu")
+    while True:
+        ui.print_menu("CRM", list_options, "Main menu")
 
-    inputs = ui.get_inputs(["number: "], "Choose menu option.")
-    option = inputs[0]
+        inputs = ui.get_inputs(["number: "], "Choose menu option.")
+        option = inputs[0]
+        table = data_manager.get_table_from_file("crm/customers.csv")
 
-    table = data_manager.get_table_from_file("crm/customers.csv")
-
-    if option == "1":
-        show_table(table)
-    elif option == "2":
-        add(table)
-    elif option == "3":
-        id_ = ui.get_inputs(["id: "], "Enter id of record to be deleted.")
-        remove(table, id_)
-    elif option == "4":
-        id_ = ui.get_inputs(["id: "], "Ented id of record to be updated")
-        update(table, id_)
-    elif option == "5":
-        label = "Id of the customer with the longest name is: "
-        result = get_longest_name_id(table)
-        ui.print_result(result, label)
-    elif option == "6":
-        get_subscribed_emails(table)
-    elif option == "0":
-        main.main()
+        if option == "1":
+            show_table(table)
+        elif option == "2":
+            add(table)
+        elif option == "3":
+            id_ = ui.get_inputs(["ID: "], "Enter ID of record to be deleted.")
+            remove(table, id_)
+        elif option == "4":
+            id_ = ui.get_inputs(["ID: "], "Enter ID of record to be updated")
+            update(table, id_)
+        elif option == "5":
+            label = "Id of the customer with the longest name is: "
+            result = get_longest_name_id(table)
+            ui.print_result(result, label)
+        elif option == "6":
+            get_subscribed_emails(table)
+        elif option == "7":
+            id_ = ui.get_inputs(["ID: "], "Enter ID of a client: ")
+            get_name_by_id(id_)
+        elif option == "0":
+            break
 
 
 def show_table(table):
@@ -174,7 +178,6 @@ def get_longest_name_id(table):
             string: id of the longest name (if there are more than one, return
                 the last by alphabetical order of the names)
         """
-    table = data_manager.get_table_from_file("crm/customers.csv")
     longest_name = table[0][1]
     result = table[0][0]
     for line in table:
@@ -209,7 +212,7 @@ def get_subscribed_emails(table):
 # --------------------------------
 
 
-def get_name_by_id(id):
+def get_name_by_id(id_):
     """
     Reads the table with the help of the data_manager module.
     Returns the name (str) of the customer with the given id (str) on None om case of non-existing id.
@@ -220,11 +223,17 @@ def get_name_by_id(id):
     Returns:
         str: the name of the customer
     """
+    table = data_manager.get_table_from_file('crm/customers.csv')
+    
+    for row in table:
+        if id_[0] == row[0]:
+            return ui.print_result(str(row[1]), "\n\tClient Name: ")
+        # else:
+        #     return None
+    
 
-    # your code
 
-
-def get_name_by_id_from_table(table, id):
+def get_name_by_id_from_table(table, id_):
     """
     Returns the name (str) of the customer with the given id (str) on None om case of non-existing id.
 
