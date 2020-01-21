@@ -44,6 +44,7 @@ def start_module():
         id_ = str(ui.get_inputs(["ID "],"Input ID of game to remove"))
         remove(table,id_)
     elif option == "3":
+        id_ = str(ui.get_inputs(["ID "],"Input ID of game to update"))
         update(table, id_)
     elif option == "4":
         show_table(table)
@@ -140,8 +141,16 @@ def update(table, id_):
         list: table with updated record
     """
 
-    # your code
-
+    ID_LIST_INDEX = 0
+    iterate = 0
+    for row in table:
+        if row[ID_LIST_INDEX] == id_[ID_LIST_INDEX]:
+            updated_record = ui.get_inputs(['title: ', 'price: ', 'month: ', 'day: ', 'year: '], row)
+            updated_record.insert(ID_LIST_INDEX, id_[ID_LIST_INDEX])
+            table[iterate] = updated_record
+            data_manager.write_table_to_file('sales/sales.csv', table)
+            break
+        iterate += 1
     return table
 
 
