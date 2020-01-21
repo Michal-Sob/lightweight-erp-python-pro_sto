@@ -52,7 +52,7 @@ def print_table(table, title_list):
 
     print(whole_length * "-")
     for row in table:
-        for i in range(len(row)):
+        for i in range(len(title_list)):
             print(f"{row[i]:<{max_length_column[i]}}", end=separator) 
 
         print()
@@ -91,9 +91,10 @@ def print_menu(title, list_options, exit_message):
     Returns:
         None: This function doesn't return anything it only prints to console.
     """
+    print(title)
     for index, value in enumerate(list_options):
-        print(f"({index+1}) {value}")
-    print("(0) %s" % exit_message)
+        print(f"\t({index+1}) {value}")
+    print("\t(0) %s" % exit_message)
 
 
 def get_inputs(list_labels, title):

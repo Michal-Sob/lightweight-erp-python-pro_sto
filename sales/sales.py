@@ -20,46 +20,41 @@ import data_manager
 import common
 import main
 
+
 def start_module():
-    exit_message = main.handle_menu()
-    title= 'Sales'
-    list_options = [
-        "Show table", "Add new record", "Remove record", "Update record",
-        "Lowest Price item","Which items are sold between two given dates?"
-    ]
-    ui.print_menu('Sales', list_options, exit_message)
-
-    file_name = "sales.csv"
-    inputs = ui.get_inputs(["number: "], "Choose menu option.")
-    option = inputs[0]
-
-    table = data_manager.get_table_from_file("accounting/items.csv")
-
-    if option == ["1"]:
-        show_table(table)
-    elif option == ["2"]:
-        add(table)
-    elif option == ["3"]:
-        ui.get_inputs(["id: "], "Enter id of record to be deleted.")
-        id_ = ui.get_inputs(["id: "], "Enter id of record to be deleted.")[0]
-    elif option == ["4"]:
-        ui.get_inputs(["id: "], "Ented id of record to be updated")
-        id_ = ui.get_inputs(["id: "], "Ented id of record to be updated")
-        update(table, id_)
-    elif option == ["5"]:
-        get_lowest_price_item_id(table)
-    elif option == ["6"]:
-        get_items_sold_between(table, month_from, day_from, year_from, month_to, day_to, year_to)
-    elif option == ["0"]:
-        main.main()
+    back_to_main_menu = True
+    while back_to_main_menu:
+        list_options = [
+            "Show table", "Add new record", "Remove record", "Update record",
+            "Lowest Price item","Which items are sold between two given dates?"
+        ]
+        ui.print_menu('Sales', list_options, 'main menu')
+        inputs = ui.get_inputs(["number: "], "Choose menu option.")
+        option = inputs[0]
+        table = data_manager.get_table_from_file('sales/sales.csv')
+        if option == "1":
+            show_table(table)
+        elif option == '2':
+            add(table)
+        elif option == "3":
+            id_ = ui.get_inputs(["id: "], "Enter id of record to be deleted.")
+            remove(table, id_)
+        elif option == "4":
+            id_ = ui.get_inputs(["id: "], "Ented id of record to be updated")
+            update(table, id_)
+        elif option == "5":
+            get_lowest_price_item_id(table)
+        elif option == "6":
+            get_items_sold_between(table, month_from, day_from, year_from, month_to, day_to, year_to)
+        elif option == "0":
+            back_to_main_menu = False
 
     # your code
 
 
 def show_table(table):
-    table_headers=['id','title','price','month','day','year']  
-    table= data_manager.get_table_from_file(sales.csv) 
-    ui.print_table(table,table_headers)
+    table_headers = ['id', 'title', 'price', 'month', 'day', 'year', 'Customer ID']
+    ui.print_table(table, table_headers)
 
     # your code
 
@@ -74,15 +69,12 @@ def add(table):
     Returns:
         list: Table with a new record
     """
-    inputs= get_inputs(["month","day","year","type","amount"],"Please provide information to add")
-    id=common.generate_random(table)
-    table= table.append(table)
-    table=data_manager.get_table_from_file(accounting/items.csv)
-    table= data_manager.write_table_to_file(items.csv,inputs)
-    ui.print_table(table,table_headers)
 
-    # your code
-
+    ID_INDEX = 0
+    record = ui.get_inputs(['title: ', 'price: ','month: ', 'day: ', 'year: '], "Please insert data:" )
+    record.insert(ID_INDEX, common.generate_random(table))
+    table.append(record)
+    data_manager.write_table_to_file('sales/sales.csv', table)
     return table
 
 
@@ -98,8 +90,11 @@ def remove(table, id_):
         list: Table without specified record.
     """
 
-    # your code
-
+    ID_LIST_INDEX = 0
+    for row in table:
+        if row[ID_LIST_INDEX] == id_[ID_LIST_INDEX]:
+            table.remove(row)
+    data_manager.write_table_to_file('sales/sales.csv', table)
     return table
 
 
@@ -114,16 +109,23 @@ def update(table, id_):
     Returns:
         list: table with updated record
     """
-    # id=common.generate_random(table)
-    # with open (sales.csv,'r+') as file:
 
-    # # your code
-
-    # return table
+    ID_LIST_INDEX = 0
+    iterate = 0
+    for row in table:
+        if row[ID_LIST_INDEX] == id_[ID_LIST_INDEX]:
+            updated_record = ui.get_inputs(['title: ', 'price: ', 'month: ', 'day: ', 'year: '], row)
+            updated_record.insert(ID_LIST_INDEX, id_[ID_LIST_INDEX])
+            table[iterate] = updated_record
+            data_manager.write_table_to_file('sales/sales.csv', table)
+            break
+        iterate += 1
+    return table
 
 
 # special functions:
 # ------------------
+
 
 def get_lowest_price_item_id(table):
     """
