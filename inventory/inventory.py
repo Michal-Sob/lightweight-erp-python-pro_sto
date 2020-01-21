@@ -17,6 +17,9 @@ import data_manager
 # common module
 import common
 
+import main
+
+title_list = ["ID", "Name", "Manufacturer", "Purshase Year", "Durability"]
 
 def start_module():
     """
@@ -28,7 +31,44 @@ def start_module():
         None
     """
 
-    # your code
+    list_options =[
+        "Add new position.",
+        "Remove position.",
+        "Update position.",
+        "Show table"
+    ]
+    
+    title = "Inventory module"
+    exit_message = "Main menu"
+    exit_to_main = 0
+    while exit_to_main == 0:
+        ui.print_menu(title, list_options, "Exit to main menu")
+        inputs = ui.get_inputs(["Please enter a number: "], "")
+        option = inputs[0]
+        table = data_manager.get_table_from_file("inventory/inventory.csv")
+        while option != 0:
+            if option == "1":
+                add(table)
+                show_table(table)
+                break
+            elif option == "2":
+                ui.print_table(table,title_list)
+                id_ = ui.get_inputs(["ID: "],"Input ID of game to remove")
+                remove(table,id_)
+                break
+            elif option == "3":
+                id_ = ui.get_inputs(["ID: "],"Input ID of game to update")
+                update(table, id_)
+                break
+            elif option == "4":
+                show_table(table)
+                break
+            elif option == "0":
+                exit_to_main = 1
+                break
+                main.main(table, id_)
+            else:
+                raise KeyError("There is no such list_options.")
 
 
 def show_table(table):
@@ -42,7 +82,8 @@ def show_table(table):
         None
     """
 
-    # your code
+    title_list = ["ID", "Name", "Manufacturer", "Purshase Year", "Durability"]
+    ui.print_table(table, title_list)
 
 
 def add(table):
@@ -58,7 +99,12 @@ def add(table):
 
     # your code
 
-    return table
+    inputs = ui.get_inputs(["Name: ", "Manufacturer: ", "Purshase Year: ", "Durability: "], "Please enter proper data")
+    genereted_id = common.generate_random(table)
+    
+    table.append([genereted_id,inputs[0],inputs[1],inputs[2],inputs[3]]) # inputs[0] = można zamienić na wygenerowane ID
+    
+    data_manager.write_table_to_file("inventory/inventory.csv", table)
 
 
 def remove(table, id_):
@@ -74,7 +120,12 @@ def remove(table, id_):
     """
 
     # your code
-
+    ID_INDEX = 0
+    for row in table:
+        if id_[ID_INDEX] == row[ID_INDEX]:
+            print("ID found and record has been removed")
+            table.remove(row)
+    data_manager.write_table_to_file('inventory/inventory.csv', table)
     return table
 
 
@@ -91,8 +142,18 @@ def update(table, id_):
     """
 
     # your code
-
-    return table
+    ID_INDEX = 0
+    row_counter = 0
+    for row in table:
+        if id_[ID_INDEX] == row[ID_INDEX]:
+            print(row)
+            updated_row = ui.get_inputs(["Name: ", "Manufacturer: ", "Purshase Year: ", "Durability: "], "Please update data:")
+            updated_row.insert(ID_INDEX, id_[ID_INDEX])
+            table[row_counter] = updated_row
+            break
+        row_counter += 1
+    data_manager.write_table_to_file("inventory/inventory.csv", table)    
+    
 
 
 # special functions:
