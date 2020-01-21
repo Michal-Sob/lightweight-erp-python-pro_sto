@@ -41,3 +41,15 @@ def generate_random(table):
                 generate_random(table)
 
     return generated
+
+def date_converter(year,month,day):
+    """ Takes year, month, day position from table and returns single integer with standarised length """
+    initial_date=[]
+    converted_date = ""
+    initial_date.extend([year,month,day])
+    for position in initial_date:
+        position = str(position)
+        if len(position) == 1:
+            position = ("0"+position) # ads 0 in case of single digit month/day to maitain proper length
+        converted_date += position
+    return int(converted_date)
