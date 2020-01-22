@@ -222,7 +222,6 @@ def get_items_sold_between(table, month_from, day_from, year_from, month_to, day
 # functions supports data abalyser
 # --------------------------------
 
-
 def get_title_by_id(id_):
 
     """
@@ -235,15 +234,11 @@ def get_title_by_id(id_):
     Returns:
         str: the title of the item
     """
-    ID_INDEX = 0
-    TITLE_INDEX = 1
     sales_table = data_manager.get_table_from_file("sales/sales.csv")
+    title = get_title_by_id_from_table(sales_table, id_)
+    return title
     #[(ui.print_result(row[TITLE_INDEX], "The title is: "), return None) for row in sales_table if id_[0] == row[ID_INDEX]]
-    for row in sales_table:
-        if id_[0] == row[ID_INDEX]:
-            ui.print_result(row[TITLE_INDEX], "The title is: ")
-            return row[TITLE_INDEX]
-    return None
+    #return None
 
 
 def get_title_by_id_from_table(table, id_):
@@ -260,9 +255,14 @@ def get_title_by_id_from_table(table, id_):
     """
 
     # your code
+    ID_INDEX = 0
+    TITLE_INDEX = 1
     for row in table:
-        if id_ == row[0]:
-            return ui.print_result(row[1], "The game's title is: ")
+        if id_[0] == row[ID_INDEX]:
+            ui.print_result(row[TITLE_INDEX], "The title is: ")
+            return row[TITLE_INDEX]
+    return None
+
 
 
 def get_item_id_sold_last():
@@ -275,6 +275,9 @@ def get_item_id_sold_last():
     """
 
     # your code
+    sales_table = data_manager.get_table_from_file("sales/sales.csv")
+    item_id = get_item_id_sold_last_from_table(sales_table)
+    return item_id
 
 
 def get_item_id_sold_last_from_table(table):
@@ -289,9 +292,27 @@ def get_item_id_sold_last_from_table(table):
     """
 
     # your code
+    YEAR_INDEX = -2
+    MONTH_INDEX = -4
+    DAY_INDEX = -3
+    ITEM_INDEX = 0
+    extracted_data = {}
+    for row in table:
+        full_date = common.date_converter(row[YEAR_INDEX], row[MONTH_INDEX], row[DAY_INDEX]) # converts to consistent data format
+        if full_date in extracted_data.keys(): #checks if key already has ben used
+            extracted_data[full_date].append(row[ITEM_INDEX]) #adds another value to value list
+        else:
+            extracted_data[full_date]=[row[ITEM_INDEX]] # adds first k/v pair with value as a list
+
+    desc_dates = sorted(extracted_data.keys(), reverse=True) #creates list with sorted key val from dict
+    # last_buy = desc_dates[0] #assigns highest date number
+    item_id = extracted_data[desc_dates[0]] 
+    #ui.print_result(item_id, "Last sold item id was: ")
+    return item_id
+    
 
 
-def get_item_title_sold_last_from_table(table):
+def get_item_title_sold_last_from_table(table): 
     """
     Returns the _title_ of the item that was sold most recently.
 
@@ -303,6 +324,14 @@ def get_item_title_sold_last_from_table(table):
     """
 
     # your code
+    #table = data_manager.get_table_from_file("sales/sales.csv")
+    ITEM_INDEX = 0
+    TITLE_INDEX = 1
+    item_id = get_item_id_sold_last()
+    for row in table:
+        if item_id[0] == row[ITEM_INDEX]:
+            ui.print_result(row[TITLE_INDEX], "Title of sold last game was: ")
+            return row[TITLE_INDEX]
 
 
 def get_the_sum_of_prices(item_ids):
@@ -318,9 +347,11 @@ def get_the_sum_of_prices(item_ids):
     """
 
     # your code
+    table = data_manager.get_table_from_file("sales/sales.csv")
+    return get_the_sum_of_prices_from_table(table, item_ids)
 
 
-def get_the_sum_of_prices_from_table(table, item_ids):
+def get_the_sum_of_prices_from_table(table, item_ids): # dokoncze PP
     """
     Returns the sum of the prices of the items in the item_ids.
 
@@ -411,7 +442,6 @@ def get_all_sales_ids_for_customer_ids():
     # your code
     sales_table = data_manager.get_table_from_file("sales/sales.csv")
     return get_all_sales_ids_for_customer_ids_from_table(sales_table)
-
 
 
 def get_all_sales_ids_for_customer_ids_from_table(table):
