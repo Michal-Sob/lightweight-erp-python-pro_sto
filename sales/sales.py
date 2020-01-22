@@ -25,9 +25,27 @@ def start_module():
     back_to_main_menu = True
     while back_to_main_menu:
         list_options = [
-            "Show table", "Add new record", "Remove record", "Update record",
-            "Lowest Price item","Which items are sold between two given dates?"
-        ]
+            "Show table", 
+            "Add new record", 
+            "Remove record", 
+            "Update record",
+            "Lowest Price item",
+            "Which items are sold between two given dates?",
+            "Get title by id", 
+            "Get title by id from table",
+            "Get item id sold last", 
+            "Get item id sold last from table",
+            "Get item title sold last from table", 
+            "Get the sum of prices",
+            "Get the sum of prices from table",
+            "Get customer id by sale id",
+            "Get customer id by sale id from table",
+            "Get all customer ids",
+            "Get all customer ids from table",
+            "Get all sales ids for customer ids",
+            "Get all sales ids for customer ids from table",
+            "Get num of sales per customer ids",
+            "Get num of sales per customer ids from table"]
         ui.print_menu('Sales', list_options, 'main menu')
         inputs = ui.get_inputs(["number: "], "Choose menu option.")
         option = inputs[0]
@@ -40,13 +58,33 @@ def start_module():
             id_ = ui.get_inputs(["id: "], "Enter id of record to be deleted.")
             remove(table, id_)
         elif option == "4":
-            id_ = ui.get_inputs(["id: "], "Ented id of record to be updated")
+            id_ = ui.get_inputs(["id: "], "Enter id of record to be updated")
             update(table, id_)
         elif option == "5":
             get_lowest_price_item_id(table)
         elif option == "6":
+            month_from, day_from, year_from, month_to, day_to, year_to = ui.get_inputs(["month_from: ", "day_from: ", "year_from: ", "month_to: ", "day_to: " , "year_to: "], "Please add dates to search between: ")
             get_items_sold_between(table, month_from, day_from, year_from, month_to, day_to, year_to)
-        elif option == "0":
+        elif option == "7":
+            get_title_by_id(id)
+        elif option == "8":
+            id_ = ui.get_inputs(["id: "], "Enter ID: ")
+            get_title_by_id_from_table(table, id_)
+        # elif option == "9":
+
+        # elif option == "10":
+        # elif option == "11":
+        # elif option == "12":
+        # elif option == "13":
+        # elif option == "14":
+        # elif option == "15":
+        # elif option == "16":
+        # elif option == "17":
+        # elif option == "18":
+        # elif option == "19":
+        # elif option == "20":
+        # elif option == "21":
+        # elif option == "22":
             back_to_main_menu = False
 
     # your code
@@ -161,7 +199,6 @@ def get_items_sold_between(table, month_from, day_from, year_from, month_to, day
 
     # your code
 
-
 # functions supports data abalyser
 # --------------------------------
 
@@ -182,7 +219,7 @@ def get_title_by_id(id):
     # your code
 
 
-def get_title_by_id_from_table(table, id):
+def get_title_by_id_from_table(table, id_):
 
     """
     Returns the title (str) of the item with the given id (str) on None om case of non-existing id.
@@ -196,6 +233,9 @@ def get_title_by_id_from_table(table, id):
     """
 
     # your code
+    for row in table:
+        if id_ == row[0]:
+            return ui.print_result(row[1], "The game's title is: ")
 
 
 def get_item_id_sold_last():
