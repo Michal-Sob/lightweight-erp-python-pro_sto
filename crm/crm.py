@@ -48,10 +48,10 @@ def start_module():
             add(table)
         elif option == "3":
             id_ = ui.get_inputs(["ID: "], "Enter ID of record to be deleted.")
-            remove(table, id_)
+            remove(table, id_[0])
         elif option == "4":
             id_ = ui.get_inputs(["ID: "], "Enter ID of record to be updated")
-            update(table, id_)
+            update(table, id_[0])
         elif option == "5":
             label = "Id of the customer with the longest name is: "
             result = get_longest_name_id(table)
@@ -60,7 +60,7 @@ def start_module():
             get_subscribed_emails(table)
         elif option == "7":
             id_ = ui.get_inputs(["ID: "], "Enter ID of a client: ")
-            get_name_by_id(id_)
+            get_name_by_id(id_[0])
         elif option == "0":
             break
 
@@ -145,7 +145,7 @@ def update(table, id_):
         list: table with updated record
     """
 
-    id_ = ("".join(map(str, id_)))
+
     index_table = 0
     for row in table:
         if row[0] == id_:
@@ -224,13 +224,8 @@ def get_name_by_id(id_):
         str: the name of the customer
     """
     table = data_manager.get_table_from_file('crm/customers.csv')
-    
-    for row in table:
-        if id_[0] == row[0]:
-            return ui.print_result(str(row[1]), "\n\tClient Name: ")
-        # else:
-        #     return None
-    
+    get_name_by_id_from_table(table, id_)
+
 
 
 def get_name_by_id_from_table(table, id_):
@@ -245,4 +240,9 @@ def get_name_by_id_from_table(table, id_):
         str: the name of the customer
     """
 
-    # your code
+    for row in table:
+        if id_ == row[0]:
+            return ui.print_result(row[1], "\n\tClient Name: ")
+    
+    return None
+
