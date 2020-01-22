@@ -70,7 +70,26 @@ def print_result(result, label):
         None: This function doesn't return anything it only prints to console.
     """
 
-    print(label, result)
+    if type(result)==dict:
+        lista = result.items()
+        print(f"{label}")
+        for i in lista:
+            print(f"{i[0]} {i[1]}")
+            # print(list(my_dict))
+    if type(result)==str:
+        print(f"{label}")
+        print(f"string")
+    if type(result)==list:
+        print(f"{label}")
+        for single_list in result:
+            print(str(single_list).strip("()"))
+    if type(result)==int:
+        print(f"{label}")
+        print(f"{result}")
+    if type(result)==set:
+        print(f"{label}")
+        for single_row in result:
+            print(f"{single_row}")
 
 
 def print_menu(title, list_options, exit_message):
@@ -115,8 +134,12 @@ def get_inputs(list_labels, title):
             [<user_input_1>, <user_input_2>, <user_input_3>]
     """
 
-    print(title)
-    inputs = [input(label) for label in list_labels]
+    inputs = []
+    print(f'{title}')
+    list_labels = list(list_labels)
+    for label in list(list_labels):
+        get_input = input(label)
+        inputs.append(get_input)
     return inputs
 
 
