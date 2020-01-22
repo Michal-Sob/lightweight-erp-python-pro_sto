@@ -351,7 +351,7 @@ def get_the_sum_of_prices(item_ids):
     return get_the_sum_of_prices_from_table(table, item_ids)
 
 
-def get_the_sum_of_prices_from_table(table, item_ids): # dokoncze PP
+def get_the_sum_of_prices_from_table(table, item_ids):
     """
     Returns the sum of the prices of the items in the item_ids.
 
@@ -364,6 +364,16 @@ def get_the_sum_of_prices_from_table(table, item_ids): # dokoncze PP
     """
 
     # your code
+    ID_INDEX = 0
+    PRICE_INDEX = 2
+    sum_of_prices = 0
+    for row in table:
+        for single_id in item_ids:
+            if single_id == row[ID_INDEX]:
+                sum_of_prices += int(row[PRICE_INDEX])
+    ui.print_result(sum_of_prices, "sum: ")
+    return sum_of_prices
+
 
 
 def get_customer_id_by_sale_id(sale_id):
