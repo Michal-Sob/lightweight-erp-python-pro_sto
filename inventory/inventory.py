@@ -47,7 +47,6 @@ def start_module():
         inputs = ui.get_inputs(["Please enter a number: "], "")
         option = inputs[0]
         table = data_manager.get_table_from_file("inventory/inventory.csv")
-<<<<<<< HEAD
         if option == "1":
             add(table)
             show_table(table)
@@ -69,30 +68,6 @@ def start_module():
             break
         else:
             raise KeyError("There is no such list_options.")
-=======
-        while option != 0:
-            if option == "1":
-                add(table)
-                show_table(table)
-                break
-            elif option == "2":
-                ui.print_table(table,title_list)
-                id_ = ui.get_inputs(["ID: "],"Input ID of game to remove")
-                remove(table,id_)
-                break
-            elif option == "3":
-                id_ = ui.get_inputs(["ID: "],"Input ID of game to update")
-                update(table, id_)
-                break
-            elif option == "4":
-                show_table(table)
-                break
-            elif option == "0":
-                exit_to_main = 1
-                break
-            else:
-                raise KeyError("There is no such list_options.")
->>>>>>> c739cdff74ebafcae3751f42f105e4326ce99b06
 
 
 def show_table(table):
