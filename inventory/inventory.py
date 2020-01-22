@@ -66,7 +66,6 @@ def start_module():
             elif option == "0":
                 exit_to_main = 1
                 break
-                main.main(table, id_)
             else:
                 raise KeyError("There is no such list_options.")
 
