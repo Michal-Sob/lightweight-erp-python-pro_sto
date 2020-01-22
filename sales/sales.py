@@ -307,6 +307,8 @@ def get_all_customer_ids():
     """
 
     # your code
+    sales_table = data_manager.get_table_from_file("sales/sales.csv")
+    return get_all_customer_ids_from_table(customer_table)
 
 
 def get_all_customer_ids_from_table(table):
@@ -319,7 +321,11 @@ def get_all_customer_ids_from_table(table):
          set of str: set of customer_ids that are present in the table
     """
 
-    # your code
+    all_id = set()
+    for row in table: 
+        all_id.add(str(row[-1]))
+    ui.print_result(all_id, "All customers ID: ")  
+    return all_id
 
 
 def get_all_sales_ids_for_customer_ids():
@@ -336,6 +342,9 @@ def get_all_sales_ids_for_customer_ids():
     """
 
     # your code
+    sales_table = data_manager.get_table_from_file("sales/sales.csv")
+    return get_all_sales_ids_for_customer_ids_from_table(sales_table)
+
 
 
 def get_all_sales_ids_for_customer_ids_from_table(table):
@@ -351,7 +360,15 @@ def get_all_sales_ids_for_customer_ids_from_table(table):
          all the sales id belong to the given customer_id
     """
 
-    # your code
+    CUSTOMER_ID_INDEX=-1
+    SALE_ID_INDEX=0
+    customer_sale_ids={}
+    for row in table:
+        if row[CUSTOMER_ID_INDEX] in customer_sale_ids.keys():
+            customer_sale_ids[row[CUSTOMER_ID_INDEX]].append(row[SALE_ID_INDEX])
+        else:
+            customer_sale_ids[row[CUSTOMER_ID_INDEX]]=[row[SALE_ID_INDEX]]
+    return customer_sale_ids
 
 
 def get_num_of_sales_per_customer_ids():
@@ -379,3 +396,4 @@ def get_num_of_sales_per_customer_ids_from_table(table):
     """
 
     # your code
+    print(table)
