@@ -18,7 +18,6 @@ import ui
 import data_manager
 # common module
 import common
-import main
 
 
 def start_module():
@@ -176,8 +175,29 @@ def get_lowest_price_item_id(table):
     Returns:
          string: id
     """
+    ID_INDEX = 0
+    PRICE_INDEX = 2
+    TITLE_INDEX = 1
+    smallest_price = table[0][PRICE_INDEX]
+    id_list = []
+    for row in table:
+        if row[PRICE_INDEX] < smallest_price:
+            smallest_price = row[PRICE_INDEX]
+            id_list.clear()
+            id_list.append(row[ID_INDEX : PRICE_INDEX + 1])
+        elif row[PRICE_INDEX] == smallest_price:
+            id_list.append(row[ID_INDEX : PRICE_INDEX + 1])
+    
+    title_smallest_price = max([row[TITLE_INDEX] for row in id_list])
+    # dupa = [row[ID_INDEX] == title_smallest_price for row in id_list]
+    for row in id_list:
+        if row[TITLE_INDEX] == title_smallest_price:
+            id_smallest_price = row[ID_INDEX]
+    print(id_smallest_price)
 
-    # your code
+
+
+
 
 
 def get_items_sold_between(table, month_from, day_from, year_from, month_to, day_to, year_to):
