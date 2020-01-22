@@ -203,7 +203,7 @@ def get_items_sold_between(table, month_from, day_from, year_from, month_to, day
 # --------------------------------
 
 
-def get_title_by_id(id):
+def get_title_by_id(id_):
 
     """
     Reads the table with the help of the data_manager module.
@@ -215,8 +215,15 @@ def get_title_by_id(id):
     Returns:
         str: the title of the item
     """
-
-    # your code
+    ID_INDEX = 0
+    TITLE_INDEX = 1
+    sales_table = data_manager.get_table_from_file("sales/sales.csv")
+    #[(ui.print_result(row[TITLE_INDEX], "The title is: "), return None) for row in sales_table if id_[0] == row[ID_INDEX]]
+    for row in sales_table:
+        if id_[0] == row[ID_INDEX]:
+            ui.print_result(row[TITLE_INDEX], "The title is: ")
+            return row[TITLE_INDEX]
+    return None
 
 
 def get_title_by_id_from_table(table, id_):
