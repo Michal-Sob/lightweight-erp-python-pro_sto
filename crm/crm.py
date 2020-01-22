@@ -30,13 +30,13 @@ def start_module():
     """
 
     list_options = [
-        "Show table", "Add new record", "Remove record", "Update record",
-        "Show id of the longest name",
-        "Show customers subscribed to newsletter",
-        "Show Name of a customer by ID"
+    "Show table", "Add new record", "Remove record", "Update record",
+    "Show id of the longest name",
+    "Show customers subscribed to newsletter",
+    "Show Name of a customer by ID"
     ]
     while True:
-        ui.print_menu("CRM", list_options, "Main menu")
+        ui.print_menu("\n\tCRM", list_options, "Main menu")
 
         inputs = ui.get_inputs(["number: "], "Choose menu option.")
         option = inputs[0]
@@ -224,7 +224,7 @@ def get_name_by_id(id_):
         str: the name of the customer
     """
     table = data_manager.get_table_from_file('crm/customers.csv')
-    get_name_by_id_from_table(table, id_)
+    return ui.print_result(get_name_by_id_from_table(table, id_), f'User name with this id ({id_}):\n')
 
 
 
@@ -242,7 +242,5 @@ def get_name_by_id_from_table(table, id_):
 
     for row in table:
         if id_ == row[0]:
-            return ui.print_result(row[1], "\n\tClient Name: ")
-    
+            return row[1]
     return None
-
