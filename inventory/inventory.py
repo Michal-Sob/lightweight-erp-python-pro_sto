@@ -35,40 +35,39 @@ def start_module():
         "Add new position.",
         "Remove position.",
         "Update position.",
-        "Show table"
+        "Show table",
+        "Available Items",
+        "Average durability"
     ]
     
     title = "Inventory module"
     exit_message = "Main menu"
-    exit_to_main = 0
-    while exit_to_main == 0:
+    while True:
         ui.print_menu(title, list_options, "Exit to main menu")
         inputs = ui.get_inputs(["Please enter a number: "], "")
         option = inputs[0]
         table = data_manager.get_table_from_file("inventory/inventory.csv")
-        while option != 0:
-            if option == "1":
-                add(table)
-                show_table(table)
-                break
-            elif option == "2":
-                ui.print_table(table,title_list)
-                id_ = ui.get_inputs(["ID: "],"Input ID of game to remove")
-                remove(table,id_)
-                break
-            elif option == "3":
-                id_ = ui.get_inputs(["ID: "],"Input ID of game to update")
-                update(table, id_)
-                break
-            elif option == "4":
-                show_table(table)
-                break
-            elif option == "0":
-                exit_to_main = 1
-                break
-                main.main(table, id_)
-            else:
-                raise KeyError("There is no such list_options.")
+        if option == "1":
+            add(table)
+            show_table(table)
+        elif option == "2":
+            ui.print_table(table,title_list)
+            id_ = ui.get_inputs(["ID: "],"Input ID of game to remove")
+            remove(table,id_)
+        elif option == "3":
+            id_ = ui.get_inputs(["ID: "],"Input ID of game to update")
+            update(table, id_)
+        elif option == "4":
+            show_table(table)
+        elif option == "5":
+            year = ui.get_inputs(["Year: "], "Input Year to check available items:")
+            get_available_items(table, year[0])
+        elif option == "6":
+            get_average_durability_by_manufacturers(table)
+        elif option == "0":
+            break
+        else:
+            raise KeyError("There is no such list_options.")
 
 
 def show_table(table):
@@ -171,7 +170,13 @@ def get_available_items(table, year):
         list: list of lists (the inner list contains the whole row with their actual data types)
     """
 
-    # your code
+    available_item_list = []
+    YEAR_INDEX = 3
+    DURABILITY_INDEX = 4
+    for row in table:
+        if int(row[YEAR_INDEX]) + int(row[DURABILITY_INDEX]) >= int(year):
+            available_item_list.append(row)
+    ui.print_result(available_item_list, 'Available items: ')
 
 
 def get_average_durability_by_manufacturers(table):
@@ -185,4 +190,13 @@ def get_average_durability_by_manufacturers(table):
         dict: a dictionary with this structure: { [manufacturer] : [avg] }
     """
 
-    # your code
+    MANUFACTURER = 2
+    DURABILITY = 4
+    avg_durability = {}
+    for row in table:
+        avg_durability[row[MANUFACTURER]] = avg_durability.setdefault(row[MANUFACTURER], [])
+        avg_durability[row[MANUFACTURER]].append(int(row[DURABILITY]))
+    for k, v in avg_durability.items():
+        result = sum(v)//len(v)
+        avg_durability[k] = result
+    ui.print_result(avg_durability, 'Avg expected durability: ')
