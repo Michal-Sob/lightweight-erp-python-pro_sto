@@ -75,34 +75,11 @@ def get_the_last_buyer_name():
     Returns:
         str: Customer name of the last buyer
     """
-    sales_table=data_manager.get_table_from_file("sales/sales.csv")
-    customer_table=data_manager.get_table_from_file("crm/customers.csv")
-    extracted_data = {}
-    for row in sales_table:
-        full_date = common.date_converter(row[-2], row[-3], row[-4]) # converts to consistent data format
-        if full_date in extracted_data.keys(): #checks if key already has ben used
-            extracted_data[full_date].append(row[-1]) #adds another value to value list
-        else:
-            extracted_data[full_date]=[row[-1]] # adds first k/v pair with value as a list
+    item_id = sales.get_item_id_sold_last()
+    customer_id = sales.get_customer_id_by_sale_id(item_id)
+    ui.print_result(crm.get_name_by_id(customer_id), "Last buyer name was: ")
+    return crm.get_name_by_id(customer_id)
 
-    desc_dates = sorted(extracted_data.keys(), reverse=True) #creates list with sorted key val from dict
-    last_buy = desc_dates[0] #assigns highest date number
-    cust_id = extracted_data[last_buy] 
-    # print(f"customer id: {cust_id}, {type(cust_id[0])}")
-    result = crm.get_name_by_id(cust_id[0])
-    # result = common.get_names_by_id_from_customer_table(cust_id)
-    #print(result)
-    ui.print_result(result, "last_buyer_name: ")
-    return result
-    # name_list = []
-    # for row in customer_table:
-    #     for position in cust_id:
-    #         if "".join(position) in row:
-    #             name_list.append(row[1])
-    #             #[print(f"{counter}: {row[1]}"), counter += 1, name_list += str(row[1]) for position in cust_id if if "".join(position) in row]
-    # ui.print_result(name_list, "Name of buyers from the most recent day:")
-    # return ",".join(name_list) # returns a string from list
-# your code
 
 
 def get_the_last_buyer_id():
@@ -112,29 +89,9 @@ def get_the_last_buyer_id():
     Returns:
         str: Customer id of the last buyer
     """
-
-    sales_table=data_manager.get_table_from_file("sales/sales.csv")
-    customer_table=data_manager.get_table_from_file("crm/customers.csv")
-    extracted_data = {}
-    for row in sales_table:
-        full_date = common.date_converter(row[-2], row[-3], row[-4]) # converts to consistent data format
-        if full_date in extracted_data.keys(): #checks if key already has ben used
-            extracted_data[full_date].append(row[-1]) #adds another value to value list
-        else:
-            extracted_data[full_date]=[row[-1]] # adds first k/v pair with value as a list
-
-    desc_dates = sorted(extracted_data.keys(), reverse=True) #creates list with sorted key val from dict
-    last_buy = desc_dates[0] #assigns highest date number
-    cust_id = extracted_data[last_buy] 
-    
-    name_list = []
-    for row in customer_table:
-        for position in cust_id:
-            if "".join(position) in row:
-                name_list.append(row[0])
-                #[print(f"{counter}: {row[0]}"), counter += 1, name_list += str(row[1]) for position in cust_id if if "".join(position) in row]
-    ui.print_result(name_list, "Id of buyers from the most recent day:")
-    return ",".join(name_list) # returns a string from list
+    item_id = sales.get_item_id_sold_last()
+    ui.print_result(sales.get_customer_id_by_sale_id(item_id), "Last buyer id was: ")
+    return sales.get_customer_id_by_sale_id(item_id)
 
 
 def get_the_buyer_name_spent_most_and_the_money_spent():

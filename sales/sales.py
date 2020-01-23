@@ -71,7 +71,9 @@ def start_module():
         elif option == "8":
             id_ = ui.get_inputs(["id: "], "Enter ID: ")
             get_title_by_id_from_table(table, id_)
-        # elif option == "9":
+        elif option == "9":
+            print(get_item_id_sold_last())
+
 
         # elif option == "10":
         # elif option == "11":
@@ -319,14 +321,12 @@ def get_item_id_sold_last_from_table(table):
             extracted_data[full_date].append(row[ITEM_INDEX]) #adds another value to value list
         else:
             extracted_data[full_date]=[row[ITEM_INDEX]] # adds first k/v pair with value as a list
-
+    
     desc_dates = sorted(extracted_data.keys(), reverse=True) #creates list with sorted key val from dict
     # last_buy = desc_dates[0] #assigns highest date number
     item_id = extracted_data[desc_dates[0]] 
     #ui.print_result(item_id, "Last sold item id was: ")
     return item_id
-    
-
 
 def get_item_title_sold_last_from_table(table): 
     """
