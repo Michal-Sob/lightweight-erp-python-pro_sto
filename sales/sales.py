@@ -511,7 +511,11 @@ def get_num_of_sales_per_customer_ids():
     """
 
     # your code
+    table = data_manager.get_table_from_file("sales/sales.csv")
+    return get_num_of_sales_per_customer_ids_from_table(table)
 
+
+    
 
 def get_num_of_sales_per_customer_ids_from_table(table):
     """
@@ -525,5 +529,10 @@ def get_num_of_sales_per_customer_ids_from_table(table):
     """
 
     # your code
-    print(table)
+    customer_with_sales = get_all_sales_ids_for_customer_ids()
+        # print(customer_with_sales.items())
+    customer_id_with_sum_of_items = {}
+    for customer_as_key in customer_with_sales:
+        customer_id_with_sum_of_items[customer_as_key] = len(customer_with_sales[customer_as_key])
+    return customer_id_with_sum_of_items
 
