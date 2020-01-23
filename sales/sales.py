@@ -19,6 +19,8 @@ import data_manager
 # common module
 import common
 
+import datetime
+
 
 def start_module():
     back_to_main_menu = True
@@ -189,7 +191,6 @@ def get_lowest_price_item_id(table):
             id_list.append(row[ID_INDEX : PRICE_INDEX + 1])
     
     title_smallest_price = max([row[TITLE_INDEX] for row in id_list])
-    # dupa = [row[ID_INDEX] == title_smallest_price for row in id_list]
     for row in id_list:
         if row[TITLE_INDEX] == title_smallest_price:
             id_smallest_price = row[ID_INDEX]
@@ -216,8 +217,23 @@ def get_items_sold_between(table, month_from, day_from, year_from, month_to, day
     Returns:
         list: list of lists (the filtered table)
     """
+    MONTH_INDEX = 3
+    DAY_INDEX = 4
+    YEAR_INDEX = 5
 
-    # your code
+
+    date_from = datetime.date(int(year_from), int(month_from), int(day_from))
+    date_to = datetime.date(int(year_to), int(month_to), int(day_to))
+    items_sold = []
+    for row in table:
+        date_of_sale = datetime.date(int(row[YEAR_INDEX]), int(row[MONTH_INDEX]), int(row[DAY_INDEX]))
+        if date_from <= date_of_sale <= date_to:
+            items_sold.append(row)
+    return ui.print_result(items_sold, 'Items sold between given dates: ')
+
+
+
+
 
 # functions supports data abalyser
 # --------------------------------
