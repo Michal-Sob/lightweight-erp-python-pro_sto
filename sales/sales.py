@@ -388,7 +388,8 @@ def get_customer_id_by_sale_id(sale_id):
          str: customer_id that belongs to the given sale id
     """
 
-    # your code
+    table = data_manager.get_table_from_file("sales/sales.csv")
+    return get_customer_id_by_sale_id_from_table(table, sale_id)
 
 
 def get_customer_id_by_sale_id_from_table(table, sale_id):
@@ -404,7 +405,12 @@ def get_customer_id_by_sale_id_from_table(table, sale_id):
     """
 
     # your code
-
+    ID_INDEX = 0
+    CUSTOMER_INDEX = -1
+    for row in table:
+        if row[ID_INDEX] == sale_id:
+            ui.print_result(row[CUSTOMER_INDEX], "Customer id is:")
+    return row[CUSTOMER_INDEX]
 
 def get_all_customer_ids():
     """
@@ -504,3 +510,4 @@ def get_num_of_sales_per_customer_ids_from_table(table):
 
     # your code
     print(table)
+
