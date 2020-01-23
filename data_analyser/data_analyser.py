@@ -88,9 +88,12 @@ def get_the_last_buyer_name():
     desc_dates = sorted(extracted_data.keys(), reverse=True) #creates list with sorted key val from dict
     last_buy = desc_dates[0] #assigns highest date number
     cust_id = extracted_data[last_buy] 
-
-    result = common.get_names_by_id_from_customer_table(cust_id)
-    print(result)
+    # print(f"customer id: {cust_id}, {type(cust_id[0])}")
+    result = crm.get_name_by_id(cust_id[0])
+    # result = common.get_names_by_id_from_customer_table(cust_id)
+    #print(result)
+    ui.print_result(result, "last_buyer_name: ")
+    return result
     # name_list = []
     # for row in customer_table:
     #     for position in cust_id:
