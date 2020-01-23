@@ -69,9 +69,10 @@ def print_result(result, label):
     Returns:
         None: This function doesn't return anything it only prints to console.
     """
-    print(label)
+    print(f"\n{label}")
     if type(result) == dict:
         [print(f"{i[0]} | {i[1]}") for i in result.items()]
+        # [print(f"{i[0]} | {i[1]}") for i in result.items() if type(result) == dict]
     if type(result) == str:
         print(f"{result}")
     if type(result) == list:
@@ -80,6 +81,10 @@ def print_result(result, label):
         print(f"{result}")
     if type(result) == set:
         [print(f"{single_element}") for single_element in result]
+    if type(result) == tuple:
+        [print(f"{single_element}") for single_element in result]
+    print()
+    
 
 def print_menu(title, list_options, exit_message):
     """

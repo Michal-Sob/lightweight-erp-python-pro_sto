@@ -387,7 +387,6 @@ def get_the_sum_of_prices_from_table(table, item_ids):
         for single_id in item_ids:
             if single_id == row[ID_INDEX]:
                 sum_of_prices += int(row[PRICE_INDEX])
-    ui.print_result(sum_of_prices, "sum: ")
     return sum_of_prices
 
 
@@ -536,3 +535,30 @@ def get_num_of_sales_per_customer_ids_from_table(table):
         customer_id_with_sum_of_items[customer_as_key] = len(customer_with_sales[customer_as_key])
     return customer_id_with_sum_of_items
 
+def get_buyer_id_who_spends_the_most_money():
+    """
+    Result: Returns tuple (customerid, with highest sum of expenditures)
+    """
+    buyers_and_expenditures_dict = get_the_sum_of_money_spend_by_each_buyer()
+    # print(type(buyers_and_expenditures_dict))
+    # sorted_buyers_and_expenditures = [sorted(((value, key) for (key, value) in buyers_and_expenditures_dict.items()), reverse=True)]
+    sorted_buyers_and_expenditures = sorted([(value, key) for (key, value) in buyers_and_expenditures_dict.items()],reverse=True) #reverse sorted list of tuples (sum,id)
+    result_of_function=(sorted_buyers_and_expenditures[0][1], sorted_buyers_and_expenditures[0][0])
+    return result_of_function
+
+
+def get_the_sum_of_money_spend_by_each_buyer():
+    """
+    Args: dictionary of (customer_id, sale_ids)
+    
+    Returns:
+         (dict of (key, value): (customer_id, sum of money) 
+
+    """
+    table = data_manager.get_table_from_file("sales/sales.csv")
+    temp_var = get_all_sales_ids_for_customer_ids()
+    customer_with_sum_of_money = {}
+    for row in temp_var:
+        # print(get_the_sum_of_prices_from_table(table, temp_var[row]))
+        customer_with_sum_of_money[row] = get_the_sum_of_prices_from_table(table, temp_var[row])
+    return customer_with_sum_of_money

@@ -33,8 +33,8 @@ def start_module():
     """
 
     list_options =[
-        'Get the last buyer name (working)',
-        'Get the last buyer id (working)', 
+        'Get the last buyer name',
+        'Get the last buyer id', 
         'Get the buyer name spent most and the money spent',
         'Get the buyer id spent most and the money spent',
         'Get the most frequent buyers names',
@@ -102,6 +102,15 @@ def get_the_buyer_name_spent_most_and_the_money_spent():
         tuple: Tuple of customer name and the sum the customer spent eg.: ('Daniele Coach', 42)
     """
 
+    buyers_and_expenditures_dict = sales.get_the_sum_of_money_spend_by_each_buyer()
+    sorted_buyers_and_expenditures = sorted([(value, key) for (key, value) in buyers_and_expenditures_dict.items()],reverse=True) #reverse sorted list of tuples (sum,id)
+    buyer_id, sum_spent=(sorted_buyers_and_expenditures[0][1], sorted_buyers_and_expenditures[0][0])
+    # buyer_id, sum_spent = get_the_buyer_id_spent_most_and_the_money_spent()
+    customer_name = crm.get_name_by_id(buyer_id)
+    result = (customer_name, sum_spent)
+    ui.print_result(result, "Name of the buyer who spent the most and the ammount: ")
+    return result
+
     # your code
 
 
@@ -113,7 +122,11 @@ def get_the_buyer_id_spent_most_and_the_money_spent():
         tuple: Tuple of customer id and the sum the customer spent eg.: (aH34Jq#&, 42)
     """
 
-    # your code
+    buyers_and_expenditures_dict = sales.get_the_sum_of_money_spend_by_each_buyer()
+    sorted_buyers_and_expenditures = sorted([(value, key) for (key, value) in buyers_and_expenditures_dict.items()],reverse=True) #reverse sorted list of tuples (sum,id)
+    result_of_function=(sorted_buyers_and_expenditures[0][1], sorted_buyers_and_expenditures[0][0])
+    ui.print_result(result_of_function, "Id of the buyer who spent the most and the ammount: ")
+    return result_of_function
 
 
 def get_the_most_frequent_buyers_names(num=1):
